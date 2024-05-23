@@ -9,5 +9,5 @@ function [S, nrj] = calc_semblance_iq(RF, nelems)
         RF(:, kk) = RF(:, kk) / max(abs(RF(:, kk)));
     end
     S = semblance_iq(RF);
-    % S = S * nrj; %*maxi;
+
 end

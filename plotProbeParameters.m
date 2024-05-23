@@ -1,14 +1,13 @@
-function f = plotProbeParameters(P, result)
+function f = plotProbeParameters(P, data, result)
 
     % unpack somethings
     metrics = result.metrics;
-    Time = result.Time;
-    XS = result.XS;
+    Time = data.Time;
+    XS = data.XS;
     NR_to_use = P.NR_to_use;
 
-    metrics_peak = metrics(result.idx_ttp, result.idx_c_lens, result.idx_h_lens);
-    RF_plot = result.RF_avg;
-    RF_plot(1:P.numSamplesMute, :) = 0;
+    RF_plot = data.RF_avg;
+    RF_plot(1:P.numSamplesMute, :) = 0; % only for visualization
 
     % compute tof
     [tof{1}, tof{2}, tof{3}] = n_reflection_traveltime(XS, XS(P.half_width_aperture_nh_el + 1), result.val_c_lens, result.val_h_lens, P.t_rt_matching_layers);

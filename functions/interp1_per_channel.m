@@ -32,9 +32,9 @@ function data_interp = interp1_per_channel(t, data, t_interp, varargin)
     % check inputs
     assert(s_interp(2) == s(2), 'Number of elements in t_interp must be equal to number of channels in data')
     data_interp = zeros(s_interp(1), s(2));
-    
+
     for k = 1:s(2)
-        data_interp(:,k) = interp1(t, data(:,k), t_interp(:,k), varargin{:});
+        data_interp(:, k) = interp1(t, data(:, k), t_interp(:, k), varargin{:});
     end
 
 end

@@ -9,8 +9,6 @@ function [tof1, tof2, tof3] = n_reflection_traveltime(x_elem_r, x_elem_t, c_lens
     % author:  R. Waasdorp (r.waasdorp@tudelft.nl)
     % ==============================================================================
 
-    
-    
     % thickness is the thickness at the left end of the layer
     zs = t_lens;
     tof1 = sqrt((2 * zs) .^ 2 + (x_elem_r - x_elem_t) .^ 2) ./ c_lens;
@@ -28,7 +26,7 @@ function [tof1, tof2, tof3] = n_reflection_traveltime(x_elem_r, x_elem_t, c_lens
     if nargout >= 3
         tof3 = 6 * sqrt((SR / 6) .^ 2 + t_lens .^ 2) / c_lens;
         tof3(x_elem_r == x_elem_t) = 6 * t_lens / c_lens;
-        tof3 = tof3 + 2*t_rt_matching_layers;
+        tof3 = tof3 + 2 * t_rt_matching_layers;
     end
 
 end

@@ -8,8 +8,9 @@ addpath('functions')
 % load('data\rawdata_L6_24D.mat')
 % load('\\tudelft.net\staff-bulk\tnw\IST\AK\hpc\rwaasdorp1\experimental_data\probe_calibration_paper\GE-L6-24-D\AIR\single_element_test3_15.625\General_calibration_probe_TW_characteristics_post.mat')
 % vars_to_save = {'RFData','Receive','TX','TW','Trans'};
-% save('test.mat',vars_to_save{:});
+% save('data\data_L6_24D_small.mat',vars_to_save{:});
 load('data\data_L6_24D.mat')
+% load('data\data_L6_24D_small.mat')
 
 %% Configure parameter search
 
@@ -21,17 +22,21 @@ P.pitch = Trans.spacingMm / 1000; % m
 P.Nz_RF = Receive(1).endSample; % number of samples in RF data for one transmit
 P.num_elements = Trans.numelements; % number of transducer elements
 
-P.ttp_guess = 1 / P.Ftx; % TW.peak / (Trans.frequency * 1e6);
+% P.ttp_guess = 1 / P.Ftx; % in seconds
+P.ttp_guess = TW.peak / (Trans.frequency * 1e6); % or use verasonics estimate
+P.ttp_guess = 128e-9; % in seconds
 
 % parameter search settings
 P.numSamplesMute = 80; % mute sample 1 till n, only for visualization
-P.applyFilter = 0;
+P.applyFilter = 1;
 P.applyTGC = 1;
 P.half_width_aperture_nh_el = 25; % half aperture number of elements to use. Nb in paper is 2*nh+1
 
 % set min and max round trip to restrict search space and save time
-P.min_round_trip = 1.0e-6; % s
-P.max_round_trip = 2.2e-6; % s
+% make sure the search boundaries (red dashed lines matlab fig 79) will
+% contain the first arrival of the primary reflection.
+P.min_round_trip = 1.2e-6; % s
+P.max_round_trip = 1.8e-6; % s
 
 P.NR_to_use = 1; % reflections to use, specified as list (1, 1:2)
 P.t_rt_matching_layers = 0; % s, round trip time in matching layers
@@ -40,17 +45,19 @@ P.t_rt_matching_layers = 0; % s, round trip time in matching layers
 % P.NR_to_use = 1:2; % reflections to use, specified as list (1, 1:2)
 % P.t_rt_matching_layers = 1/P.Fc; % s, round trip time in matching layers
 
-P.NDelay = 25; % number of values for delay to test
-P.NThickness = 50; % number of values for thickness to test
-P.NCLens = 50; % number of values for lens sound speed to test
+P.NDelay = 50; % number of values for delay to test
+P.NThickness = 100; % number of values for thickness to test
+P.NCLens = 100; % number of values for lens sound speed to test
 
 P.ttp_values_test = linspace(-1 / P.Ftx, 4 / P.Ftx, P.NDelay) + P.ttp_guess; % s, TTP values to test in grid search
-P.thickness_values_test = linspace(0.5e-3, 1.0e-3, P.NThickness); % m, thickness values to test in grid search
+P.thickness_values_test = linspace(0.5e-3, 0.8e-3, P.NThickness); % m, thickness values to test in grid search
 P.c_values_test = linspace(900, 1050, P.NCLens); % m/s, sound speed values to test in grid search
 
-%% Run parameter search!
+%% Preprocess RF and view to check if parameters are correct
 
-result = findProbeParameters(P, RFData);
+data = preprocessRFData(P, RFData);
+previewRFData(P, data);
 
-%%
-plotProbeParameters(P, result);
+%% Find Transducer parameters and
+result = findProbeParameters(P, data);
+plotProbeParameters(P, data, result);
