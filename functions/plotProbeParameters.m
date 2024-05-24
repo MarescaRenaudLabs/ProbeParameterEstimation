@@ -1,5 +1,7 @@
 function f = plotProbeParameters(P, data, result)
 
+    fprintf('Plotting final results...\n');
+
     % unpack somethings
     metrics = result.metrics;
     Time = data.Time;

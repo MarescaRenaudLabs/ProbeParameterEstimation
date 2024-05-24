@@ -1,9 +1,10 @@
 function [] = previewRFData(P, data)
 
+    fprintf('Previewing RFData...\n');
+
     XS = data.XS;
     time = data.Time;
     RF_avg = data.RF_avg;
-    XS_all = data.XS_all;
 
     show_tx = 64; Nh = P.half_width_aperture_nh_el;
     RF_shot = data.RF(:, show_tx + (-Nh:Nh), show_tx);

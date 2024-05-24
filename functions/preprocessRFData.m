@@ -1,4 +1,6 @@
 function data = preprocessRFData(P, RFData)
+    
+    fprintf('Preprocessing RFData...\n');
 
     % rearange the RF signals
     RF = zeros(P.Nz_RF, P.num_elements, P.num_elements);

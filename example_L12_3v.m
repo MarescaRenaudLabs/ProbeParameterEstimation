@@ -5,12 +5,6 @@ close all
 addpath('functions')
 
 %% load L12-3v data
-% load('\\tudelft.net\staff-bulk\tnw\IST\AK\hpc\rwaasdorp1\experimental_data\probe_calibration_paper\L12-3v\AIR\single_element\General_calibration_probe_TW_characteristics_post.mat')
-% load('data\rawdata_L2_3v.mat')
-% vars_to_save = {'RFData', 'Receive', 'TX', 'TW', 'Trans'};
-% save('test.mat', vars_to_save{:});
-% load('data\data_L6_24D.mat')
-
 load('data\data_L12_3v.mat')
 
 %% Configure parameter search

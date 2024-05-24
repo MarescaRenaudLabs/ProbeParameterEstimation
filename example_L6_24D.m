@@ -5,12 +5,7 @@ close all
 addpath('functions')
 
 %% load L6-24D data
-% load('data\rawdata_L6_24D.mat')
-% load('\\tudelft.net\staff-bulk\tnw\IST\AK\hpc\rwaasdorp1\experimental_data\probe_calibration_paper\GE-L6-24-D\AIR\single_element_test3_15.625\General_calibration_probe_TW_characteristics_post.mat')
-% vars_to_save = {'RFData','Receive','TX','TW','Trans'};
-% save('data\data_L6_24D_small.mat',vars_to_save{:});
 load('data\data_L6_24D.mat')
-% load('data\data_L6_24D_small.mat')
 
 %% Configure parameter search
 
@@ -54,7 +49,6 @@ P.thickness_values_test = linspace(0.5e-3, 0.8e-3, P.NThickness); % m, thickness
 P.c_values_test = linspace(900, 1050, P.NCLens); % m/s, sound speed values to test in grid search
 
 %% Preprocess RF and view to check if parameters are correct
-
 data = preprocessRFData(P, RFData);
 previewRFData(P, data);
 

@@ -1,5 +1,7 @@
 function result = findProbeParameters(P, data)
 
+    fprintf('Finding Probe Parameters...\n');
+    
     % unpack some variables
     XS = data.XS;
     Time = data.Time;

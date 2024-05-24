@@ -12,7 +12,6 @@ function [tof1, tof2, tof3] = n_reflection_traveltime(x_elem_r, x_elem_t, c_lens
     % thickness is the thickness at the left end of the layer
     zs = t_lens;
     tof1 = sqrt((2 * zs) .^ 2 + (x_elem_r - x_elem_t) .^ 2) ./ c_lens;
-    % tof1 = tof1 ;% + t_rt_matching_layers;
 
     SA = 2 * (t_lens);
     RB = 2 * (t_lens);
