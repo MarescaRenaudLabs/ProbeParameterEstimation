@@ -1,7 +1,7 @@
 function result = findProbeParameters(P, data)
 
     fprintf('Finding Probe Parameters...\n');
-    
+
     % unpack some variables
     XS = data.XS;
     Time = data.Time;
@@ -27,8 +27,8 @@ function result = findProbeParameters(P, data)
                 for k = P.NR_to_use
                     t_interp = tof{k} + ttp_vals(k_ttp);
                     rf_interp = interp1_per_channel(Time, data.RFIQ_avg, t_interp, 'cubic');
-                    [S, nrj] = calc_semblance_iq(rf_interp);
-                    S_all(k_ttp, k_c, k_h, k) = S * nrj;
+                    Cw = calc_weighted_coherence(rf_interp); % weight by signal power
+                    S_all(k_ttp, k_c, k_h, k) = Cw;
 
                 end
             end

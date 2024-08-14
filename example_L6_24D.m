@@ -44,6 +44,10 @@ P.NDelay = 50; % number of values for delay to test
 P.NThickness = 100; % number of values for thickness to test
 P.NCLens = 100; % number of values for lens sound speed to test
 
+% P.NDelay = 10; % number of values for delay to test
+% P.NThickness = 20; % number of values for thickness to test
+% P.NCLens = 20; % number of values for lens sound speed to test
+
 P.ttp_values_test = linspace(-1 / P.Ftx, 4 / P.Ftx, P.NDelay) + P.ttp_guess; % s, TTP values to test in grid search
 P.thickness_values_test = linspace(0.5e-3, 0.8e-3, P.NThickness); % m, thickness values to test in grid search
 P.c_values_test = linspace(900, 1050, P.NCLens); % m/s, sound speed values to test in grid search

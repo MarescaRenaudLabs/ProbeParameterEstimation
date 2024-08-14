@@ -31,10 +31,11 @@ function data_interp = interp1_per_channel(t, data, t_interp, varargin)
 
     % check inputs
     assert(s_interp(2) == s(2), 'Number of elements in t_interp must be equal to number of channels in data')
-    data_interp = zeros(s_interp(1), s(2));
 
-    for k = 1:s(2)
-        data_interp(:, k) = interp1(t, data(:, k), t_interp(:, k), varargin{:});
-    end
+    x = 1:s(2);
+    [X, T] = meshgrid(x, t);
+    x2 = repmat(x, s_interp(1), 1);
+
+    data_interp = interp2(X, T, data, x2, t_interp, varargin{:});
 
 end
